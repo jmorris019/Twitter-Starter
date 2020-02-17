@@ -15,10 +15,12 @@ class HomeTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         loadTweet()
-        
+    }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.loadTweet()
     }
     
     @IBAction func onLogout(_ sender: Any) {
@@ -63,6 +65,10 @@ class HomeTableViewController: UITableViewController {
         if let imageData = data {
             cell.profilePic.image = UIImage(data: imageData)
         }
+        
+        cell.setFaved(isFaved: tweetArray[indexPath.row]["favorited"] as! Bool)
+        cell.tweetId = tweetArray[indexPath.row]["id"] as! Int
+        cell.setRetweeted(tweetArray[indexPath.row]["retweeted"] as! Bool)
         
         return cell
     
